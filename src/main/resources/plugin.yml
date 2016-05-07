@@ -1,3 +1,31 @@
 name: SleepDemocracy
 main: fi.gosu.mc.plugins.SleepDemocracy
 version: ${version}
+author: Aikain
+description: Minecraft plugin for democracy of sleeping
+commands:
+  sdtoggle:
+    description: Change status ON/OFF
+    permissions: sleepdemocracy.sdtoggle
+    usage: |
+      /&lt;command&gt; [ON|OFF]
+      Example: /&lt;command&gt; - Toggle plugin status
+      Example: /&lt;command&gt; ON - Turn on plugin
+  sdset:
+    description: Sets the percent which the required sleeper
+    permissions: sleepdemocracy.sdset
+    usage: |
+      /&lt;command&gt; <percent>
+      Example: /&lt;command&gt; 40 - Needs 2 of 5 player to sleep
+permissions:
+  sleepdemocracy.*:
+    description: Gives access to all SleepDemocracy command
+    children:
+      sleepdemocracy.sdtoggle: true
+      sleepdemocracy.sdset: true
+  sleepdemocracy.sdtoggle:
+    description: Allow you change plugin status
+    default: op
+  sleepdemocracy.sdset:
+    description: Allow you change plugin sleep percent
+    default: op
