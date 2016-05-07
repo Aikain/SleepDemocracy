@@ -1,0 +1,3 @@
+name: SleepDemocracy
+main: fi.gosu.mc.plugins.SleepDemocracy
+version: ${version}
