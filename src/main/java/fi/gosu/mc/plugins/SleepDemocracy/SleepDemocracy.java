@@ -125,7 +125,7 @@ public class SleepDemocracy extends JavaPlugin implements Listener {
     private void testSleeping() {
         if (!this.SDEnable) return;
         for (World world : Bukkit.getWorlds()) {
-            if (world.getPlayers().isEmpty()) continue;
+            if (world.getPlayers().isEmpty() || world.getTime() < 12000) continue;
             int i = 0;
             for (Player player : world.getPlayers()) {
                 if (player.isSleeping()) i++;
