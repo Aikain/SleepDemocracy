@@ -124,7 +124,7 @@ public class SleepDemocracy extends JavaPlugin implements Listener {
     private void testSleeping() {
         if (!this.SDEnable) return;
         Map<World, Integer> sleepers = new HashMap<>();
-        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
             sleepers.put(player.getWorld(), (sleepers.containsKey(player.getWorld()) ? sleepers.get(player.getWorld()) + 1 : 0));
         }
         for (Entry<World, Integer> entry : sleepers.entrySet()) {
