@@ -53,7 +53,7 @@ public class SleepDemocracy extends JavaPlugin implements Listener {
                     } else if (args.length == 1) {
                         if (args[0].equals("ON")) {
                             this.SDEnable = true;
-                        } else if (args[1].equals("OFF")) {
+                        } else if (args[0].equals("OFF")) {
                             this.SDEnable = false;
                         } else {
                             sender.sendMessage(cmd.getUsage());
