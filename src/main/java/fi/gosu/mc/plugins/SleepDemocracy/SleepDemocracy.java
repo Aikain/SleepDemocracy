@@ -124,17 +124,17 @@ public class SleepDemocracy extends JavaPlugin implements Listener {
 
     private void testSleeping() {
         if (!this.SDEnable) return;
-        Map<World, Integer> sleepers = new HashMap<>();
-        for (Player player : Arrays.asList(Bukkit.getServer().getOnlinePlayers())) {
-            sleepers.put(player.getWorld(), (sleepers.containsKey(player.getWorld()) ? sleepers.get(player.getWorld()) + 1 : 0));
-        }
-        for (Entry<World, Integer> entry : sleepers.entrySet()) {
-            int currentPercent = 100 * entry.getValue() / entry.getKey().getPlayers().size();
-            for (Player player : entry.getKey().getPlayers()) {
-                player.sendMessage("Currently " + entry.getValue() + "% of " + entry.getKey().getName() + "'s players are sleeping out of " + this.SDPercent + "% needed.");
+        for (World world : Bukkit.getWorlds()) {
+            int i = 0;
+            for (Player player : world.getPlayers()) {
+                if (player.isSleeping()) i++;
+            }
+            int currentPercent = 100 * i / world.getPlayers().size();
+            for (Player player : world.getPlayers()) {
+                player.sendMessage("Currently " + currentPercent + "% of " + world.getName() + "'s players are sleeping out of " + this.SDPercent + "% needed.");
             }
             if (currentPercent > SDPercent) {
-                entry.getKey().setTime(1000L);
+                world.setTime(1000L);
             }
         }
     }
