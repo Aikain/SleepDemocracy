@@ -6,7 +6,7 @@
 
     <groupId>fi.gosu.mc.plugins</groupId>
     <artifactId>SleepDemocracy</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <build>
         <plugins>
@@ -21,6 +21,13 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>bukkit-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.bukkit</groupId>
@@ -31,11 +38,5 @@
         </dependency>
     </dependencies>
 
-    <repositories>
-        <repository>
-            <id>bukkit-repo</id>
-            <url>http://repo.bukkit.org/content/groups/public/</url>
-        </repository>
-    </repositories>
 
 </project>
