@@ -1,9 +1,18 @@
 package fi.gosu.mc.plugins.SleepDemocracy;
 
+import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.*;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Created by Aikain on 7.5.2016.
@@ -85,5 +94,47 @@ public class SleepDemocracy extends JavaPlugin implements Listener {
                 break;
         }
         return false;
+    }
+
+    @EventHandler
+    public void onBedEnter(PlayerBedEnterEvent event) {
+        testSleeping();
+    }
+
+    @EventHandler
+    public void onBedLeave(PlayerBedLeaveEvent event) {
+        testSleeping();
+    }
+
+    @EventHandler
+    public void onServerJoin(PlayerJoinEvent event) {
+        testSleeping();
+    }
+
+    @EventHandler
+    public void onServerLeave(PlayerQuitEvent event) {
+        testSleeping();
+    }
+
+    @EventHandler
+    public void onWorldChange(PlayerChangedWorldEvent event) {
+        testSleeping();
+    }
+
+    private void testSleeping() {
+        if (!this.SDEnable) return;
+        Map<World, Integer> sleepers = new HashMap<>();
+        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+            sleepers.put(player.getWorld(), (sleepers.containsKey(player.getWorld()) ? sleepers.get(player.getWorld()) + 1 : 0));
+        }
+        for (Entry<World, Integer> entry : sleepers.entrySet()) {
+            int currentPercent = 100 * entry.getValue() / entry.getKey().getPlayers().size();
+            for (Player player : entry.getKey().getPlayers()) {
+                player.sendMessage("Currently " + entry.getValue() + "% of " + entry.getKey().getName() + "'s players are sleeping out of " + this.SDPercent + "% needed.");
+            }
+            if (currentPercent > SDPercent) {
+                entry.getKey().setTime(1000L);
+            }
+        }
     }
 }
