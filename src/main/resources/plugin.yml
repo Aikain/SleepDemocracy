@@ -1,6 +1,6 @@
 name: SleepDemocracy
 main: fi.gosu.mc.plugins.SleepDemocracy.SleepDemocracy
-version: 1.0.0
+version: 1.0.1
 author: Aikain
 description: Minecraft plugin for democracy of sleeping
 commands:
