@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -124,7 +125,7 @@ public class SleepDemocracy extends JavaPlugin implements Listener {
     private void testSleeping() {
         if (!this.SDEnable) return;
         Map<World, Integer> sleepers = new HashMap<>();
-        for (Player player : Bukkit.getOnlinePlayers()) {
+        for (Player player : Arrays.asList(Bukkit.getServer().getOnlinePlayers())) {
             sleepers.put(player.getWorld(), (sleepers.containsKey(player.getWorld()) ? sleepers.get(player.getWorld()) + 1 : 0));
         }
         for (Entry<World, Integer> entry : sleepers.entrySet()) {
