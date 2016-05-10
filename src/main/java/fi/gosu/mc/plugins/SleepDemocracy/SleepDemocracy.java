@@ -42,11 +42,6 @@ public class SleepDemocracy extends JavaPlugin implements Listener {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        System.out.println(cmd.getPermission());
-        System.out.println(cmd.getPermissionMessage());
-        if (!sender.hasPermission(cmd.getPermission())) {
-            return false;
-        }
         switch (cmd.getName()) {
             case "sdtoggle":
                 if (args.length == 0) {
