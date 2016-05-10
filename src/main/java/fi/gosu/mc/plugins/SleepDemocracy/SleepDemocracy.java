@@ -59,6 +59,7 @@ public class SleepDemocracy extends JavaPlugin implements Listener {
                 this.getConfig().set("SDEnable", Boolean.valueOf(this.SDEnable));
                 this.saveConfig();
                 sender.sendMessage((this.SDEnable ? "Enabled" : "Disabled") + " SleepDemocracy");
+                if (this.SDEnable) testSleeping();
                 return true;
             case "sdset":
                 if (args.length == 1) {
@@ -71,6 +72,7 @@ public class SleepDemocracy extends JavaPlugin implements Listener {
                         this.getConfig().set("SDPercent", Integer.valueOf(a));
                         this.saveConfig();
                         sender.sendMessage("Set percent to " + args[0]);
+                        testSleeping();
                         return true;
                     } catch (Exception e) {
                         sender.sendMessage("Number invalid. Please enter a integer 0 - 100.");
