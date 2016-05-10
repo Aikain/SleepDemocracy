@@ -4,6 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -99,6 +101,11 @@ public class SleepDemocracy extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onBedEnter(PlayerBedEnterEvent event) {
+        for (Entity entity : event.getPlayer().getNearbyEntities(8.0,8.0,5.0)) {
+            if (entity instanceof Monster) {
+                return;
+            }
+        }
         testSleeping(event.getPlayer());
     }
 
