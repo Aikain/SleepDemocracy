@@ -12,11 +12,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 /**
  * Created by Aikain on 7.5.2016.
  */
@@ -47,57 +42,52 @@ public class SleepDemocracy extends JavaPlugin implements Listener {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        System.out.println(cmd.getPermission());
+        System.out.println(cmd.getPermissionMessage());
+        if (!sender.hasPermission(cmd.getPermission())) {
+            return false;
+        }
         switch (cmd.getName()) {
             case "sdtoggle":
-                if (sender.hasPermission("sleepdemocracy.sdtoggle")) {
-                    if (args.length == 0) {
-                        this.SDEnable = !this.SDEnable;
-                    } else if (args.length == 1) {
-                        if (args[0].equals("ON")) {
-                            this.SDEnable = true;
-                        } else if (args[0].equals("OFF")) {
-                            this.SDEnable = false;
-                        }
-                        return false;
-                    } else {
-                        return false;
+                if (args.length == 0) {
+                    this.SDEnable = !this.SDEnable;
+                } else if (args.length == 1) {
+                    if (args[0].equals("ON")) {
+                        this.SDEnable = true;
+                    } else if (args[0].equals("OFF")) {
+                        this.SDEnable = false;
                     }
-                    this.getConfig().set("SDEnable", Boolean.valueOf(this.SDEnable));
-                    this.saveConfig();
-                    sender.sendMessage((this.SDEnable ? "Enabled" : "Disabled") + " SleepDemocracy");
-                    return true;
-                }
-                sender.sendMessage(cmd.getPermissionMessage());
-                break;
-            case "sdset":
-                if (sender.hasPermission("sleepdemocracy.sdset")) {
-                    if (args.length == 1) {
-                        try {
-                            int a = Integer.parseInt(args[0]);
-                            if (a < 0 || a > 100) {
-                                throw new Exception();
-                            }
-                            this.SDPercent = a;
-                            this.getConfig().set("SDPercent", Integer.valueOf(a));
-                            this.saveConfig();
-                            sender.sendMessage("Set percent to " + args[0]);
-                            return true;
-                        } catch (Exception e) {
-                            sender.sendMessage("Number invalid. Please enter a number 0 - 100.");
-                        }
-                    }
+                    return false;
                 } else {
-                    sender.sendMessage(cmd.getPermissionMessage());
-                    return true;
+                    return false;
                 }
-                break;
+                this.getConfig().set("SDEnable", Boolean.valueOf(this.SDEnable));
+                this.saveConfig();
+                sender.sendMessage((this.SDEnable ? "Enabled" : "Disabled") + " SleepDemocracy");
+                return true;
+            case "sdset":
+                if (args.length == 1) {
+                    try {
+                        int a = Integer.parseInt(args[0]);
+                        if (a < 0 || a > 100) {
+                            throw new Exception();
+                        }
+                        this.SDPercent = a;
+                        this.getConfig().set("SDPercent", Integer.valueOf(a));
+                        this.saveConfig();
+                        sender.sendMessage("Set percent to " + args[0]);
+                        return true;
+                    } catch (Exception e) {
+                        sender.sendMessage("Number invalid. Please enter a integer 0 - 100.");
+                    }
+                }
         }
         return false;
     }
 
     @EventHandler
     public void onBedEnter(PlayerBedEnterEvent event) {
-        for (Entity entity : event.getPlayer().getNearbyEntities(8.0,8.0,5.0)) {
+        for (Entity entity : event.getPlayer().getNearbyEntities(8.0, 8.0, 5.0)) {
             if (entity instanceof Monster) {
                 return;
             }
@@ -139,7 +129,8 @@ public class SleepDemocracy extends JavaPlugin implements Listener {
             }
             int currentPercent = 100 * i / world.getPlayers().size();
             for (Player player : world.getPlayers()) {
-                if (currentPercent > 0) player.sendMessage("Currently " + currentPercent + "% of " + world.getName() + "'s players are sleeping out of " + this.SDPercent + "% needed.");
+                if (currentPercent > 0)
+                    player.sendMessage("Currently " + currentPercent + "% of " + world.getName() + "'s players are sleeping out of " + this.SDPercent + "% needed.");
             }
             if (currentPercent >= SDPercent) {
                 world.setTime(1000L);

@@ -5,18 +5,18 @@ author: Aikain
 description: Minecraft plugin for democracy of sleeping
 commands:
   sdtoggle:
-    description: Change status ON/OFF
+    description: Change SleepDemocracy status ON/OFF
     permissions: sleepdemocracy.sdtoggle
     usage: |
       /sdtoggle [ON|OFF]
       Example: /sdtoggle - Toggle plugin status
       Example: /sdtoggle ON - Turn on plugin
   sdset:
-    description: Sets the percent which the required sleeper
+    description: Sets the percent of SleepDemocracy which required sleepers
     permissions: sleepdemocracy.sdset
     usage: |
-      /sdset; <percent>
-      Example: /sdset; 40 - Needs 2 of 5 player to sleep
+      /sdset <percent>
+      Example: /sdset 40 - Needs 2 of 5 player to sleep
 permissions:
   sleepdemocracy.*:
     description: Gives access to all SleepDemocracy command
