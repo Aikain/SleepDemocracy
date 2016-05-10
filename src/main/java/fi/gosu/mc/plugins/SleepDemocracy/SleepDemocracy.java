@@ -136,7 +136,7 @@ public class SleepDemocracy extends JavaPlugin implements Listener {
             }
             int currentPercent = 100 * i / world.getPlayers().size();
             for (Player player : world.getPlayers()) {
-                player.sendMessage("Currently " + currentPercent + "% of " + world.getName() + "'s players are sleeping out of " + this.SDPercent + "% needed.");
+                if (currentPercent > 0) player.sendMessage("Currently " + currentPercent + "% of " + world.getName() + "'s players are sleeping out of " + this.SDPercent + "% needed.");
             }
             if (currentPercent >= SDPercent) {
                 world.setTime(1000L);
