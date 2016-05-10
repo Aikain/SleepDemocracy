@@ -57,12 +57,9 @@ public class SleepDemocracy extends JavaPlugin implements Listener {
                             this.SDEnable = true;
                         } else if (args[0].equals("OFF")) {
                             this.SDEnable = false;
-                        } else {
-                            sender.sendMessage(cmd.getUsage());
-                            return false;
                         }
+                        return false;
                     } else {
-                        sender.sendMessage(cmd.getUsage());
                         return false;
                     }
                     this.getConfig().set("SDEnable", Boolean.valueOf(this.SDEnable));
@@ -88,11 +85,10 @@ public class SleepDemocracy extends JavaPlugin implements Listener {
                         } catch (Exception e) {
                             sender.sendMessage("Number invalid. Please enter a number 0 - 100.");
                         }
-                    } else {
-                        sender.sendMessage(cmd.getUsage());
                     }
                 } else {
                     sender.sendMessage(cmd.getPermissionMessage());
+                    return true;
                 }
                 break;
         }
