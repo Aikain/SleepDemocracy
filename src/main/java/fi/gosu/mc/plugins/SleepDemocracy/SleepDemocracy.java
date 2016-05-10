@@ -99,7 +99,7 @@ public class SleepDemocracy extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onBedEnter(PlayerBedEnterEvent event) {
-        testSleeping();
+        testSleeping(event.getPlayer());
     }
 
     @EventHandler
@@ -123,12 +123,16 @@ public class SleepDemocracy extends JavaPlugin implements Listener {
     }
 
     private void testSleeping() {
+        testSleeping(null);
+    }
+
+    private void testSleeping(Player p) {
         if (!this.SDEnable) return;
         for (World world : Bukkit.getWorlds()) {
             if (world.getPlayers().isEmpty() || world.getTime() < 12000) continue;
             int i = 0;
             for (Player player : world.getPlayers()) {
-                if (player.isSleeping()) i++;
+                if (player.isSleeping() || (p != null && p.equals(player))) i++;
             }
             int currentPercent = 100 * i / world.getPlayers().size();
             for (Player player : world.getPlayers()) {
